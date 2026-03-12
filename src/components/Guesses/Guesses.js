@@ -1,18 +1,17 @@
 import React from 'react';
+import { range } from '../../utils';
+import Guess from '../Guess';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 function Guesses({ guesses }) {
-  const visibleGuesses = guesses.length > 5 ? guesses.splice(0,6) : guesses;
- 
+  const rows = range(NUM_OF_GUESSES_ALLOWED);
+  
+  
   return (
     <div class="guess-results">
-      {visibleGuesses.map(({ id, guess }) => {
-        return (
-          <p key={id} class="guess">
-          {
-            guess.split('').map((letter, idx) => <span class="cell" id={idx}>{letter}</span>)
-          }
-        </p>);
-      })}
+      {rows.map((row) => 
+      <Guess key={row} row={row} guesses={guesses} />
+      )}
     </div>
   );
 }
