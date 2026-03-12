@@ -32,7 +32,7 @@ function Game() {
   
   return (
     <>
-      <Guesses guesses={guesses} />
+      <Guesses guesses={guesses} answer={answer}  />
       <InputForm guess={guess} handleGuess={handleGuess} handleSubmit={handleSubmit} />
     </>
   );
