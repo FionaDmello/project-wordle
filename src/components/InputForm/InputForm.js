@@ -1,6 +1,7 @@
 import React from 'react';
+import Banner from "../Banner"
 
-function InputForm({ guess, handleGuess, handleSubmit }) {
+function InputForm({ guess, handleGuess, handleSubmit, bannerInfo }) {
   return (
     <div>
       <form class="guess-input-wrapper" onSubmit={handleSubmit}>
@@ -15,8 +16,11 @@ function InputForm({ guess, handleGuess, handleSubmit }) {
           id="guess-input"
           pattern=".{5}"
           value={guess}
-          onChange={handleGuess} />
+          onChange={handleGuess}
+          disabled={bannerInfo.status!==""}
+        />
       </form>
+      {bannerInfo.status !== "" && <Banner bannerInfo={bannerInfo} />}
     </div>
   ); 
 }
