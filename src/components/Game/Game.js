@@ -4,6 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import InputForm from "../InputForm/InputForm";
 import Guesses from "../Guesses/Guesses";
+import Keyboard from "../Keyboard/Keyboard"; 
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -61,6 +62,7 @@ function Game() {
     <>
       <Guesses guesses={guesses} answer={answer}  />
       <InputForm guess={guess} handleGuess={handleGuess} handleSubmit={handleSubmit} bannerInfo={bannerInfo} />
+      <Keyboard />
     </>
   );
 }
