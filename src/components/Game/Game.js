@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { sample } from "../../utils";
-import { WORDS } from "../../data";
+import { WORDS, KEYS } from "../../data";
 import InputForm from "../InputForm/InputForm";
 import Guesses from "../Guesses/Guesses";
 import Keyboard from "../Keyboard/Keyboard"; 
@@ -14,25 +14,35 @@ console.info({ answer });
 function Game() {
   const [guess, setGuess] = useState("");
   const [guesses, setGuesses] = useState([]);
-  const [bannerInfo, setBannerInfo] = useState({status: "", answer: answer, noOfGuesses: 0});
+  const [bannerInfo, setBannerInfo] = useState({ status: "", answer: answer, noOfGuesses: 0 });
+  const [keys, setKeys] = useState(KEYS)
 
   const handleGuess = (e) => {
-    setGuess(e.target.value);
-  };
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newGuess = {
-      guess: guess.toUpperCase(),
-      id: crypto.randomUUID()
+    const letter = e.target.value;
+    const newGuess = guess + letter;
+    
+    const updatedKeys = [...keys]
+    const ansArr = answer.split("")
+    const rowAndLetterIdx = updatedKeys.map(row => row.findIndex(letterObj => letterObj.value === letter))
+    const letterIdx = rowAndLetterIdx.find(idx => idx !== -1)
+    const row = rowAndLetterIdx.findIndex(idx => idx === letterIdx)
+    
+    if (ansArr.includes(letter)) {
+      if (ansArr[guess.length] === letter) {
+        updatedKeys[row][letterIdx]["status"] = "correct"
+      }
+      else {
+        updatedKeys[row][letterIdx]["status"] = "misplaced"
+      }
+    } else {
+      updatedKeys[row][letterIdx]["status"] = "incorrect"
     }
-    const newGuesses = [...guesses, newGuess]
-    setGuesses(newGuesses)
-    setGuess("");
-    handleBannerStatus(guess);
+   
+    setKeys(updatedKeys)
+    setGuess(newGuess);
   };
   
-  const handleBannerStatus = (guess) => {
+  const handleBannerStatus = useCallback((guess) => {
     if (guess.toUpperCase() === answer) {
       const updatedBannerInfo = { ...bannerInfo }
       updatedBannerInfo["status"] = "happy"
@@ -46,23 +56,30 @@ function Game() {
     }
 
     //setTimeout(resetBannerStatus, 1000)
-  }
+  },[guesses, bannerInfo])
   
-  /*
-  NOTE: Could reset the banner after a few seconds, but then the input is enabled and the user can continue the game which should not happen
-  const resetBannerStatus = () => {
-    const resetBannerInfo = { ...bannerInfo }
-    resetBannerInfo["status"] = ""
-    resetBannerInfo["noOfGuesses"] = 0
-    setBannerInfo(resetBannerInfo)
-  }
-  */
+  const handleSubmit = useCallback(() => {
+    const newGuess = {
+      guess: guess.toUpperCase(),
+      id: crypto.randomUUID()
+    }
+    const newGuesses = [...guesses, newGuess]
+    setGuesses(newGuesses)
+    setGuess("");
+    handleBannerStatus(guess);
+  },[guess, guesses, handleBannerStatus]);
+  
+  useEffect(() => {
+    if (guess.length === 5) {
+      handleSubmit()
+    }
+  },[guess, handleSubmit])
     
   return (
     <>
       <Guesses guesses={guesses} answer={answer}  />
-      <InputForm guess={guess} handleGuess={handleGuess} handleSubmit={handleSubmit} bannerInfo={bannerInfo} />
-      <Keyboard />
+      <InputForm guess={guess} handleGuess={handleGuess} bannerInfo={bannerInfo} />
+      <Keyboard keys={keys} handleGuess={handleGuess} />
     </>
   );
 }

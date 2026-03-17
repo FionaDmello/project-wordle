@@ -1,15 +1,14 @@
 import React from 'react';
-import { KEYS } from "../../data";
 
-function Keyboard() {
+function Keyboard({ keys, handleGuess }) {
   return (
     <div class="keyboard-container">
       {
-        KEYS.map((row, idx) => {
+        keys.map((row, idx) => {
           return (
             <div class="keyboard-row" key={idx}>
               {
-                row.map(key => <button key={key} class="keyboard-key keyboard-key_neutral">{key}</button>)
+                row.map(key => <button key={key.value} value={key.value} class={`keyboard-key keyboard-key_${key.status}`} onClick={(e) => handleGuess(e)}>{key.value}</button>)
               }
             </div>
         )})
