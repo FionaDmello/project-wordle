@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Banner({ bannerInfo }) {
+function Banner({ bannerInfo, resetGame }) {
   const { status, answer, noOfGuesses } = bannerInfo
   
   return (
-    <div class={`${status} banner`}>
+    <div className={`${status} banner`}>
       <p>
         {
           status === "happy" ?
@@ -17,6 +17,7 @@ function Banner({ bannerInfo }) {
             </>     
         }
       </p>
+      <button onClick={resetGame}>Restart Game</button>
     </div>);
 }
 

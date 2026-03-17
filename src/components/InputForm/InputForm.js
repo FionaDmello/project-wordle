@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from "../Banner"
 
-function InputForm({ guess, handleGuess, bannerInfo }) {
+function InputForm({ guess, handleGuess, bannerInfo, resetGame }) {
   return (
     <div>
       <form class="guess-input-wrapper">
@@ -20,7 +20,7 @@ function InputForm({ guess, handleGuess, bannerInfo }) {
           disabled={bannerInfo.status!==""}
         />
       </form>
-      {bannerInfo.status !== "" && <Banner bannerInfo={bannerInfo} />}
+      {bannerInfo.status !== "" && <Banner bannerInfo={bannerInfo} resetGame={resetGame} />}
     </div>
   ); 
 }

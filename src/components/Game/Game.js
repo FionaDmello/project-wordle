@@ -1,22 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
-
 import { sample } from "../../utils";
 import { WORDS, KEYS } from "../../data";
 import InputForm from "../InputForm/InputForm";
 import Guesses from "../Guesses/Guesses";
 import Keyboard from "../Keyboard/Keyboard"; 
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
-
 function Game() {
+  const [answer, setAnswer] = useState(() => sample(WORDS));
   const [guess, setGuess] = useState("");
   const [guesses, setGuesses] = useState([]);
   const [bannerInfo, setBannerInfo] = useState({ status: "", answer: answer, noOfGuesses: 0 });
   const [keys, setKeys] = useState(KEYS)
 
+  console.log(answer)
   const handleGuess = (e) => {
     const letter = e.target.value;
     const newGuess = guess + letter;
@@ -52,9 +48,7 @@ function Game() {
       updatedBannerInfo["status"] = "sad"
       setBannerInfo(updatedBannerInfo)
     }
-
-    //setTimeout(resetBannerStatus, 1000)
-  },[guesses, bannerInfo])
+  },[guesses, bannerInfo, answer])
   
   const handleSubmit = useCallback(() => {
     const newGuess = {
@@ -71,12 +65,20 @@ function Game() {
     if (guess.length === 5) {
       handleSubmit()
     }
-  },[guess, handleSubmit])
+  }, [guess, handleSubmit])
+  
+  const resetGame = () => {
+    setAnswer(sample(WORDS))
+    setGuesses([])
+    setGuess("")
+    setBannerInfo({ status: "", answer: answer, noOfGuesses: 0 })
+    setKeys(KEYS)
+  }
     
   return (
     <>
       <Guesses guesses={guesses} answer={answer}  />
-      <InputForm guess={guess} handleGuess={handleGuess} bannerInfo={bannerInfo} />
+      <InputForm guess={guess} handleGuess={handleGuess} bannerInfo={bannerInfo} resetGame={resetGame} />
       <Keyboard keys={keys} handleGuess={handleGuess} />
     </>
   );
