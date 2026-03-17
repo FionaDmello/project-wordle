@@ -23,19 +23,17 @@ function Game() {
     
     const updatedKeys = [...keys]
     const ansArr = answer.split("")
-    const rowAndLetterIdx = updatedKeys.map(row => row.findIndex(letterObj => letterObj.value === letter))
-    const letterIdx = rowAndLetterIdx.find(idx => idx !== -1)
-    const row = rowAndLetterIdx.findIndex(idx => idx === letterIdx)
+    const letterIdx = updatedKeys.findIndex(letterObj => letterObj.value === letter)
     
     if (ansArr.includes(letter)) {
       if (ansArr[guess.length] === letter) {
-        updatedKeys[row][letterIdx]["status"] = "correct"
+        updatedKeys[letterIdx]["status"] = "correct"
       }
       else {
-        updatedKeys[row][letterIdx]["status"] = "misplaced"
+        updatedKeys[letterIdx]["status"] = "misplaced"
       }
     } else {
-      updatedKeys[row][letterIdx]["status"] = "incorrect"
+      updatedKeys[letterIdx]["status"] = "incorrect"
     }
    
     setKeys(updatedKeys)

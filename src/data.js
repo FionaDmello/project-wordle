@@ -52,36 +52,30 @@ export const WORDS = [
 ];
 
 export const KEYS = [
-  [
-    { value: "Q", status: "neutral" },
-    { value: "W", status: "neutral" },
-    { value: "E", status: "neutral" },
-    { value: "R", status: "neutral" },
-    { value: "T", status: "neutral" },
-    { value: "Y", status: "neutral" },
-    { value: "U", status: "neutral" },
-    { value: "I", status: "neutral" },
-    { value: "O", status: "neutral" },
-    { value: "P", status: "neutral" }
-  ],
-  [
-    { value: "A", status: "neutral" },
-    { value: "S", status: "neutral" },
-    { value: "D", status: "neutral" },
-    { value: "F", status: "neutral" },
-    { value: "G", status: "neutral" },
-    { value: "H", status: "neutral" },
-    { value: "J", status: "neutral" },
-    { value: "K", status: "neutral" },
-    { value: "L", status: "neutral" }
-  ],
-  [
-    { value: "Z", status: "neutral" },
-    { value: "X", status: "neutral" },
-    { value: "C", status: "neutral" },
-    { value: "V", status: "neutral" },
-    { value: "B", status: "neutral" },
-    { value: "N", status: "neutral" },
-    { value: "M", status: "neutral" }
-  ]
+  { value: "Q", status: "neutral", row: 0 },
+  { value: "W", status: "neutral", row: 0},
+  { value: "E", status: "neutral", row: 0 },
+  { value: "R", status: "neutral", row: 0 },
+  { value: "T", status: "neutral", row: 0 },
+  { value: "Y", status: "neutral", row: 0 },
+  { value: "U", status: "neutral", row: 0 },
+  { value: "I", status: "neutral", row: 0 },
+  { value: "O", status: "neutral", row: 0 },
+  { value: "P", status: "neutral", row: 0 },
+  { value: "A", status: "neutral", row: 1 },
+  { value: "S", status: "neutral", row: 1 },
+  { value: "D", status: "neutral", row: 1 },
+  { value: "F", status: "neutral", row: 1 },
+  { value: "G", status: "neutral", row: 1 },
+  { value: "H", status: "neutral", row: 1 },
+  { value: "J", status: "neutral", row: 1 },
+  { value: "K", status: "neutral", row: 1 },
+  { value: "L", status: "neutral", row: 1 },
+  { value: "Z", status: "neutral", row: 2 },
+  { value: "X", status: "neutral", row: 2 },
+  { value: "C", status: "neutral", row: 2 },
+  { value: "V", status: "neutral", row: 2 },
+  { value: "B", status: "neutral", row: 2 },
+  { value: "N", status: "neutral", row: 2 },
+  { value: "M", status: "neutral", row: 2 }
 ]
